@@ -16,10 +16,11 @@ function init() {
   light.position.set(0, 0, 0);
   scene.add(light);
 
-  var sphere = new THREE.Mesh(
+   sphere = new THREE.Mesh(
     new THREE.SphereGeometry(100, 32, 32),
     new THREE.MeshBasicMaterial({
-      map: new THREE.TextureLoader().load('../assets/360scenery.jpg')
+//      map: new THREE.TextureLoader().load('../assets/360scenery.jpg')
+      map: new THREE.TextureLoader().load('../assets/360city.jpg')
     })
   );
   sphere.scale.x = -1
@@ -31,11 +32,10 @@ function init() {
     controls.dampingFactor = 0.25;
     controls.enableZoom = false;
     controls.target.set(
-      camera.position.x + 0.1,
+      camera.position.x,
       camera.position.y,
-      camera.position.z
+      camera.position.z + 0.000000001
     );
-//    controls.addEventListener( 'change', render );
   }
   
   function setOrientationControls() {
@@ -43,8 +43,8 @@ function init() {
     controls.connect();
   }
   
-  setOrbitControls();
-//  setOrientationControls();
+//  setOrbitControls();
+  setOrientationControls();
   window.addEventListener( 'resize', onWindowResize, false );
   document.body.appendChild(element);
 }
