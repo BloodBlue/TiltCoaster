@@ -29,6 +29,24 @@ function init() {
   sphere.scale.x = -1
   scene.add(sphere);
   
+  var trackLoader = THREE.ColladaLoader();
+  trackLoader.load('tracks/track.dae', collada => {
+     track = collada.scene;
+//    track.scale.set(0.009, 0.009, 0.009);
+    track.updateMatrix();
+    
+    track.position.set(-1, -1, 0);
+    scene.add(track);
+  });
+  
+  setOrbitControls();
+  if (window.DeviceOrientationEvent) {
+//    console.log('DeviceOrientationEvent', DeviceOrientationEvent);
+//    setOrientationControls();
+  }
+  window.addEventListener( 'resize', onWindowResize, false );
+  document.body.appendChild(element);
+  
   function setOrbitControls() {
     controls = new THREE.OrbitControls(camera, element);
     controls.enableDamping = true;
@@ -40,16 +58,10 @@ function init() {
       camera.position.z + 0.000000001
     );
   }
-  
   function setOrientationControls() {
     controls = new THREE.DeviceOrientationControls(camera, true);
     controls.connect();
   }
-  
-//  setOrbitControls();
-  setOrientationControls();
-  window.addEventListener( 'resize', onWindowResize, false );
-  document.body.appendChild(element);
 }
 
 function render() {
